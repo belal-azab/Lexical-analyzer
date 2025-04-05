@@ -1,30 +1,52 @@
-# Lexical Analyzer
+# Lexical Analyzer for Simple Programming Language
 
-A simple **Lexical Analyzer** (lexer) that reads a source code file, tokenizes it into identifiers, integers, operators, and parentheses, and outputs the token types along with their lexemes. This project forms the foundation for building compilers or interpreters.
+This code implements a **lexical analyzer** (lexer or scanner) for a simple programming language. The lexical analyzer reads a stream of characters from an input file and breaks it into a series of tokens, each representing a meaningful unit in the source code (such as keywords, identifiers, operators, literals, etc.).
 
 ## Features
 
-- **Tokenization**: Identifies and generates tokens for:
+- **Tokenization**: The lexer generates tokens for:
   - Identifiers (e.g., variable names)
-  - Integer literals (e.g., numbers)
+  - Integer literals (e.g., `123`)
   - Operators (e.g., `+`, `=`, etc.)
   - Parentheses (e.g., `(`, `)`)
   
 - **Character Classification**: Differentiates between letters, digits, and unknown symbols.
-  
+
 - **Lexeme Processing**: Outputs both the token type and lexeme for each identified token.
 
-## How It Works
+## Character Classes and Token Codes
 
-1. **Input**: The program reads an input source code file (`front.in`).
-2. **Tokenization**: Each character is processed, classified, and tokens are generated.
-3. **Output**: The program outputs the token types and their corresponding lexemes.
+- **Character Classes:**
+  - `LETTER (0)`: Alphabetic characters (used for identifiers).
+  - `DIGIT (1)`: Numeric characters (used for integer literals).
+  - `UNKNOWN (99)`: Unrecognized characters (e.g., operators or symbols).
+  - `END_OF_FILE (-1)`: Marks the end of input.
 
-## Usage
+- **Token Codes:**
+  - `INT_LIT (10)`: Integer literal (e.g., `123`).
+  - `IDENT (11)`: Identifier (e.g., variable names).
+  - `ASSIGN_OP (20)`: Assignment operator (`=`).
+  - `ADD_OP (21)`: Addition operator (`+`).
+  - `SUB_OP (22)`: Subtraction operator (`-`).
+  - `MULT_OP (23)`: Multiplication operator (`*`).
+  - `DIV_OP (24)`: Division operator (`/`).
+  - `LEFT_PAREN (25)`: Left parenthesis (`(`).
+  - `RIGHT_PAREN (26)`: Right parenthesis (`)`).
 
-1. Ensure the source code file (`front.in`) is in the same directory.
-2. Compile and run the program.
-3. View the output tokens and lexemes printed to the console.
+## Function Breakdown
+
+- **addChar()**: Appends the current `nextChar` to the `lexeme`.
+- **getChar()**: Reads the next character from the input file and classifies it (as a letter, digit, unknown character, or end of file).
+- **getNonBlank()**: Skips over any whitespace characters in the input.
+- **lookup()**: Checks `nextChar` to determine which token to generate for symbols like operators and parentheses.
+- **lex()**: Main lexer function, which processes the input and generates tokens. It calls `getChar()` and `lookup()` to determine the next token, then outputs the token and lexeme.
+
+## Main Program Workflow
+
+1. The program opens an input file (`front.in`).
+2. It reads characters from the file, processes them using `lex()`, and generates tokens.
+3. It prints the next token and lexeme each time `lex()` is called.
+4. The process ends when the end of the file is reached.
 
 ## Example
 
