@@ -31,4 +31,4 @@ A simple **Lexical Analyzer** (lexer) that reads a source code file, tokenizes i
 For an input like:
 
 ```cpp
-int x = 5 + 3;
+sum = 25 + 30 / (10 - 5)
